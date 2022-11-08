@@ -13,7 +13,6 @@ mongoose.connect(process.env.MONGO_URI, () => {
 });
 app.use(express.json());
 app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
 app.listen(PORT, () => {
 	console.log(`Server is running on post ${PORT}`);
 });
