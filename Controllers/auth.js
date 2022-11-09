@@ -1,4 +1,5 @@
 const userModel = require("../Model/user");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const registerUser = async (req, res) => {
 	const { username, email, password } = req.body;
@@ -30,7 +31,16 @@ const login = async (req, res) => {
 			//  	: res.status(403).json("access deined");
 			if (passwordValidity) {
 				const { password, createdAt, updatedAt, ...other } = user._doc;
-				res.status(200).json(other);
+
+				const accessToken = jwt.sign(
+					{
+						id: user._id,
+						isAdmin: user.isAdmin,
+					},
+					process.env.JWT_SECRET_KEY,
+					{ expiresIn: "3d" }
+				);
+				res.status(200).json({ ...other, accessToken });
 			} else {
 				res.status(403).status("Access denied");
 			}
