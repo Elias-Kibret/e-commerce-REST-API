@@ -38,8 +38,10 @@ const login = async (req, res) => {
 						isAdmin: user.isAdmin,
 					},
 					process.env.JWT_SECRET_KEY,
-					{ expiresIn: "3d" }
+					{ expiresIn: "1d" }
 				);
+				// Elias kibret
+
 				res.status(200).json({ ...other, accessToken });
 			} else {
 				res.status(403).status("Access denied");
