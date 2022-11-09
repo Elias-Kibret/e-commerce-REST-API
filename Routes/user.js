@@ -1,5 +1,8 @@
 const router = require("express").Router();
-const verfityToken = require("../Middleware/verfiyToken");
+const {
+	verfityTokenAndAuthorization,
+	verfiyToken,
+} = require("../Middleware/verfiyToken");
 const { updateUser } = require("../Controllers/user");
-router.put("/:id", verfityToken, updateUser);
+router.put("/:id", verfityTokenAndAuthorization, updateUser);
 module.exports = router;

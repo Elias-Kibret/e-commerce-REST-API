@@ -16,4 +16,13 @@ const verfiyToken = (req, res, next) => {
 	}
 };
 
-module.exports = verfiyToken;
+const verfityTokenAndAuthorization = (req, res, next) => {
+	verfiyToken(req, res, () => {
+		if (req.user.id === req.params.id || req.user.isAdmin) {
+			next();
+		} else {
+			res.status(403).json("You are not allowed to update");
+		}
+	});
+};
+module.exports = { verfiyToken, verfityTokenAndAuthorization };
