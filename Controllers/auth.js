@@ -11,12 +11,38 @@ const registerUser = async (req, res) => {
 			email: email,
 		}).save();
 
-		res.status(200).json(newUser);
+		res.status(200).json();
 	} catch (error) {
 		res.status(500).json(error);
 	}
 };
 
+const login = async (req, res) => {
+	const { username, password } = req.body;
+	console.log(username, password);
+	try {
+		const user = await userModel.findOne({ username: username });
+
+		if (user) {
+			const passwordValidity = await bcrypt.compare(password, user.password);
+			// passwordValidity
+			// 	 res.status(200).json("logged in succesfully")
+			//  	: res.status(403).json("access deined");
+			if (passwordValidity) {
+				const { password, createdAt, updatedAt, ...other } = user._doc;
+				res.status(200).json(other);
+			} else {
+				res.status(403).status("Access denied");
+			}
+		} else {
+			res.status(404).json("User not found");
+		}
+	} catch (error) {
+		res.status(200).json(error);
+	}
+};
+
 module.exports = {
 	registerUser,
+	login,
 };
