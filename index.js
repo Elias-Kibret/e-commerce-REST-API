@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
-app.user("/api/cart", cartRouter);
+app.use("/api/cart", cartRouter);
 app.listen(PORT, () => {
 	console.log(`Server is running on post ${PORT}`);
 });
