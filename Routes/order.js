@@ -4,5 +4,5 @@ const { verfityTokenAndAdmin } = require("../Middleware/verfiyToken");
 
 router.get("/", verfityTokenAndAdmin, getOrders);
 router.get("/:userId", verfityTokenAndAdmin, getSingleOrder);
-router.get("/stats", verfityTokenAndAdmin, getStats);
+router.get("/income", verfityTokenAndAdmin, getStats);
 module.exports = router;
